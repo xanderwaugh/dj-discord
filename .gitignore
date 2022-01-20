@@ -1,0 +1,6 @@
+node_modules
+yarn.lock
+dj-discord.code-workspace
+.todo
+.env
+dist

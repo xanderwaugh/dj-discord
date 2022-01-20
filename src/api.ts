@@ -16,7 +16,7 @@ const APIServer = (client: myClient) => {
     // Guild List
     app.get("/guilds", (_req, res) => {
         client.guilds.fetch().then((guilds) => {
-            let guildNames: guildList[] = [];
+            const guildNames: guildList[] = [];
             let count = 0;
             guilds.forEach((guild) => {
                 guildNames.push({
@@ -35,9 +35,9 @@ const APIServer = (client: myClient) => {
     app.get("/queue", (_req, res) => {
         // Loop throrugh guilds and loop through queue
         client.guilds.fetch().then((guilds) => {
-            let songqueue: (Queue | undefined)[] = [];
+            const songqueue: (Queue | undefined)[] = [];
             guilds.forEach((guild) => {
-                let gque = client.player?.getQueue(guild.id);
+                const gque = client.player?.getQueue(guild.id);
                 songqueue.push(gque);
             });
             res.json(songqueue);
@@ -46,7 +46,7 @@ const APIServer = (client: myClient) => {
 
     // Generate Invite Link
     app.get("/invite", (_req, res) => {
-        let inv = client.generateInvite({
+        const inv = client.generateInvite({
             scopes: ["bot"],
             permissions: "ADMINISTRATOR",
         });

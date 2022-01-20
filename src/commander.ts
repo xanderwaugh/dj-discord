@@ -1,4 +1,4 @@
-import { myClient, commands, tagXanny } from "./utils";
+import { myClient, commands } from "./utils";
 
 const commander = (client: myClient, PREFIX: string) => {
     client.on("messageCreate", (message) => {

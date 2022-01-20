@@ -5,7 +5,7 @@ const help: myCommand = {
     name: "help",
     aliases: ["h"],
     callback: async (client: myClient, message: Message) => {
-        let emb_fields: EmbedField[] = [];
+        const emb_fields: EmbedField[] = [];
         Object.keys(commands).forEach((cmd) => {
             emb_fields.push({
                 name: `${commands[cmd].name}`,

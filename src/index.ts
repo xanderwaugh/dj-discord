@@ -5,19 +5,9 @@ import { myClient, myIntents, djStatus } from "./utils";
 import { APIServer } from "./api";
 import { commander } from "./commander";
 
-// let TOKEN: string;
-// let PREFIX: string;
-// if (process.env.NODE_ENV === "production") {
-//     TOKEN = process.env.TOKEN ?? "";
-//     PREFIX = process.env.PREFIX ?? "";
-// } else {
-//     TOKEN = process.env.TEST_TOKEN ?? "";
-//     PREFIX = "$";
-// }
-
 const { TOKEN, PREFIX } = process.env;
 
-// Create Client --- intents: [new Intents(32441)],
+// Create Client
 const client: myClient = new Client({
     intents: myIntents,
     presence: djStatus,
@@ -36,8 +26,13 @@ client.on("ready", async () => {
     APIServer(client);
 
     // Command Handler
-    // console.log("Commands", commands);
     commander(client, PREFIX ?? "!");
+});
+
+// Player Events
+client.player.on("channelEmpty", async (queue) => {
+    // queue.clearQueue();
+    queue.connection?.leave();
 });
 
 // Login

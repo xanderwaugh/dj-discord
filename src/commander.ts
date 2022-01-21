@@ -1,4 +1,4 @@
-import { myClient, commands } from "./utils";
+import { myClient, commands, tagXanny } from "./utils";
 
 const commander = (client: myClient, PREFIX: string) => {
     client.on("messageCreate", (message) => {
@@ -16,13 +16,13 @@ const commander = (client: myClient, PREFIX: string) => {
             try {
                 commands[aliasidx].callback(client, message, ...args);
             } catch {
-                // tagXanny(client, message);
+                tagXanny(client);
             }
         } else if (commands[commandName ?? ""]) {
             try {
                 commands[commandName ?? ""].callback(client, message, ...args);
             } catch {
-                // tagXanny(client, message);
+                tagXanny(client);
             }
         } else console.log("Not a cmd");
     });

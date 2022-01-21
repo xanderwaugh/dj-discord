@@ -50,9 +50,9 @@ const myIntents = [
     Intents.FLAGS.GUILD_VOICE_STATES,
 ];
 
-const tagXanny = (client: myClient, message: Message) => {
+const tagXanny = (client: myClient) => {
     client.users.fetch(xannyid).then(async (user) => {
-        await message.reply(`${user}`);
+        await user.send("Error Occured");
     });
 };
 const isUserInVC = (message: Message) => {

@@ -1,20 +1,26 @@
-import "dotenv/config";
+import path from "path";
+import dotenv from "dotenv-safe";
+dotenv.config({
+  path: path.join(__dirname, "../", ".env.local"),
+});
 import { Client } from "discord.js";
 import { Player } from "discord-music-player";
 import { myClient, myIntents, djStatus } from "./utils";
 import { APIServer } from "./api";
 import { commander } from "./commander";
+// import dbots from "dbots";
 
-const { TOKEN, PREFIX } = process.env; // prod
+// * ENVVARS
+const { TOKEN, PREFIX } = process.env;
 // const { TEST_TOKEN: TOKEN, TEST_PREFIX: PREFIX } = process.env; // dev
 
-// Create Client
+// * Create Client
 const client: myClient = new Client({
   intents: myIntents,
   presence: djStatus,
 });
 
-// Create Player
+// * Create Player
 client.player = new Player(client, {
   quality: "high",
   timeout: 10,
@@ -22,19 +28,24 @@ client.player = new Player(client, {
   leaveOnStop: false,
 });
 
+// * Start
 client.on("ready", async () => {
   console.log("Client Ready...");
   APIServer(client);
 
-  // Command Handler
+  // * Command Handler
   await commander(client, PREFIX ?? "!");
-});
 
-// Player Events
-client.player.on("channelEmpty", async queue => {
-  //   const guildQueue = client.player?.getQueue(queue.guild.id);
-  //   if (guildQueue) guildQueue.clearQueue();
-  queue.connection?.leave();
+  // * Poll discordbotsgg
+  // const poster = new dbots.Poster({
+  //   client, apiKeys: { discordbotsgg: DBGG_KEY ?? "", topgg: TOPGG_KEY ?? "",
+  //   }, clientLibrary: "discord.js", });
+  // * Poll Services every 30 mins // poster.startInterval();
+
+  // * Player Events
+  client.player?.on("channelEmpty", async (queue) => {
+    queue.connection?.leave();
+  });
 });
 
 // Login

@@ -4,3 +4,5 @@ dj-discord.code-workspace
 .todo
 .env
 dist
+.env.local
+oldpackage.json
